@@ -19,3 +19,15 @@ def get_unary(df, threshold=0.75, dropna=False):
     is over this threshold then column is selected.
     dropna: If considering or not null values as a value in frequencies
     """
+
+def get_summary_df(df):
+    """
+    Returns a summary dataframe with the main statistics, datatypes, 
+    counts/missing values for numerical and categorical columns. 
+
+    Parameters:
+    df: dataframe to summarize
+
+    Returns:
+    summary_df: dataframe with the summary statistics
+    """
