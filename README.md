@@ -71,6 +71,13 @@ AutoEDA sits in the space between low-level EDA utilities and fully automated pr
 - Tight integration with pandas and matplotlib/seaborn
 - A focus on EDA as code, suitable for notebooks, scripts, and production pipelines
 
+## Contributors
+
+- Eli Gonzalez
+- Gloria Yi
+- Gurleen Kaur
+- Mantram Sharma
+
 ## Copyright
 
 - Copyright © 2026 Eli Gonzalez, Gurleen Kaur, Gloria Yi, Mantram Sharma.
