@@ -129,4 +129,18 @@ def plot_histograms_by_target(df, target, features=None, bins=30, figsize=(12, 8
         Name of the target column.
 
     features : list of str, optional
-        List of feature column names to plot. If N
+        List of feature column names to plot. If None, all numeric
+        columns except the target will be used.
+
+    bins : int, default=30
+        Number of bins for the histograms.
+
+    figsize : tuple, default=(12, 8)
+        Size of the figure.
+
+    Returns
+    -------
+    matplotlib.figure.Figure
+        Figure object containing the histograms.
+    """
+    pass
