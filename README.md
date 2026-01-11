@@ -8,7 +8,9 @@
 *TODO: the above badges that indicate python version and package version will only work if your package is on PyPI.
 If you don't plan to publish to PyPI, you can remove them.*
 
-AutoEDA is a project that (describe what it does here).
+Overview
+
+AutoEDA is a lightweight Python package designed to automate the most common and time-consuming steps of Exploratory Data Analysis (EDA). Given a pandas DataFrame, AutoEDA quickly surfaces data quality issues, statistical summaries, and meaningful visualizations to help data scientists and analysts understand their data before modeling.
 
 ## Get started
 
@@ -26,6 +28,55 @@ To use autoeda in your code:
 >>> import autoeda
 >>> autoeda.hello_world()
 ```
+
+## Core Functionality
+
+AutoEDA provides a set of modular functions that can be used independently or combined into a full EDA workflow:
+
+- `get_unary(df, threshold=0.75, dropna=False)`  
+Identifies columns dominated by a single value beyond a configurable frequency threshold. This helps detect near-constant or low-information features that may be candidates for removal.
+
+- `get_summary_df(df)`  
+Generates a comprehensive summary table including data types, descriptive statistics, counts, and missing value information for both numerical and categorical features.
+
+- `check_na_outliers(df, outlier_method="auto", ...)`  
+Diagnoses missing values and potential outliers across columns, optionally assigning qualitative risk levels and actionable suggestions for preprocessing steps such as imputation or transformation.
+
+- `plot_correlation_heatmap(df, target=None, method="pearson")`  
+Computes and visualizes correlations between numeric features using a heatmap, with optional emphasis on correlations involving a target variable.
+
+- `plot_histograms_by_target(df, target, features=None)`  
+Plots feature distributions conditioned on a target variable, making it easier to inspect class separation, skewness, and feature behavior across outcomes.
+
+## Positioning in the Python Ecosystem
+
+AutoEDA sits in the space between low-level EDA utilities and fully automated profiling tools. Several existing libraries provide overlapping functionality:
+
+- [pandas-profiling (renamed as ydata-profiling)](https://docs.profiling.ydata.ai/latest/)
+
+    Generates exhaustive HTML reports but can be heavy, slow on large datasets, and less customizable in programmatic workflows.
+
+- [Sweetviz](https://github.com/fbdesignpro/sweetviz)
+
+    Focuses on visual comparisons and reporting, primarily for reporting.
+
+- [D-Tale](https://github.com/man-group/dtale)
+
+    Provides an interactive UI for EDA, but is less suited for scripted pipelines or reproducible analysis.
+
+**AutoEDA** differentiates itself by offering:
+
+- Simple, composable Python functions (not monolithic reports)
+- Interpretable diagnostics and suggestions
+- Tight integration with pandas and matplotlib/seaborn
+- A focus on EDA as code, suitable for notebooks, scripts, and production pipelines
+
+## Contributors
+
+- Eli Gonzalez
+- Gloria Yi
+- Gurleen Kaur
+- Mantram Sharma
 
 ## Copyright
 

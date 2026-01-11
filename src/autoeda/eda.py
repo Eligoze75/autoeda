@@ -24,6 +24,7 @@ def get_unary(df, threshold=0.75, dropna=False):
     Returns:
     unary_cols: list of unary columns.
     """
+    pass
 
 
 def get_summary_df(df):
@@ -37,10 +38,17 @@ def get_summary_df(df):
     Returns:
     summary_df: dataframe with the summary statistics
     """
+    pass
 
 
-def check_na_outliers(df, outlier_method="auto", na_threshold=0.1,
-                      outlier_threshold=0.05, return_risk=True, return_suggestions=True):
+def check_na_outliers(
+    df,
+    outlier_method="auto",
+    na_threshold=0.1,
+    outlier_threshold=0.05,
+    return_risk=True,
+    return_suggestions=True,
+):
     """
     Diagnose missing values and outliers in a DataFrame.
 
@@ -55,7 +63,7 @@ def check_na_outliers(df, outlier_method="auto", na_threshold=0.1,
         Input dataset for exploratory data analysis.
     outlier_method : {"auto", "iqr", "zscore", "mad"}, default="auto"
         Method used to detect outliers in numeric columns. If "auto",
-        the most appropriate method is selected,  
+        the most appropriate method is selected,
         based on the distribution of each column.
     na_threshold : float, default=0.1
         Proportion threshold above which missing values are flagged
@@ -80,6 +88,7 @@ def check_na_outliers(df, outlier_method="auto", na_threshold=0.1,
         columns), and optional risk levels and suggested actions.
     """
     pass
+
 
 def plot_correlation_heatmap(df, target=None, method="pearson", figsize=(10, 8)):
     """
