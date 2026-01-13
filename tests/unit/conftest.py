@@ -1,7 +1,9 @@
 import pandas as pd
+import pytest
 
 
-def generate_test_banking_dataframe():
+@pytest.fixture
+def sample_df():
     """
     Generates a sample banking dataset for client analysis.
 
