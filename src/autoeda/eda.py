@@ -27,20 +27,46 @@ def get_unary(df, threshold=0.75, dropna=False):
     pass
 
 
-def get_summary_df(df):
+def get_summary_df(df, categorical_columns, numerical_columns):
     """
     Returns a summary dataframe with the main statistics, datatypes,
     counts/missing values for numerical and categorical columns.
 
+    For categorical columns, the summary includes:
+    - Data types
+    - Number of non-null values
+    - Count of missing values
+    - Most common value/category
+
+    For numerical columns, the summary includes:
+    - Data types
+    - Count of non-null values
+    - Count of missing values
+    - Mean
+    - Standard deviation
+    - Minimum value
+    - Maximum value
+
     Parameters:
-    df: dataframe to summarize
+    df: Pandas DataFrame.
+    categorical_columns: names of the columns with categorical data.
+    numerical_columns: names of the columns with numerical data.
 
     Returns:
-    summary_df: dataframe with the summary statistics
+    categorical_df: summary dataframe for categorical columns.
+    numerical_df: summary dataframe for numerical columns.
     """
-    pass
-
-
+    categorical_df = pd.DataFrame()
+    numerical_df = pd.DataFrame()
+    for column in categorical_columns:
+        categorical_df[column] = pd.concat([df.loc[:, column].dtypes, 
+                                            df.loc[:, column].count(), 
+                                            np.sum(df.loc[:, column].isnull()),
+                                            df.loc[:, column].mode()[0]
+                                            ],
+                                           axis=1, 
+                                           )
+        
 def check_na_outliers(
     df,
     outlier_method="auto",
