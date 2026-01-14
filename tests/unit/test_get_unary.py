@@ -6,7 +6,7 @@ columns under different parameter configurations and properly validates
 input types.
 """
 
-from autoeda.get_unary import get_unary
+from autoeda.inspect import get_unary
 import pytest
 
 
