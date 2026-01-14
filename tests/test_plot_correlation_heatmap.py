@@ -18,3 +18,13 @@ def test_plot_correlation_heatmap_basic():
 
     # Check that the function returns a matplotlib Axes object
     assert isinstance(ax, matplotlib.axes.Axes)
+
+def test_plot_correlation_heatmap_ignores_non_numeric():
+    df = pd.DataFrame({
+        "age": [22, 25, 30, 35],
+        "income": [40000, 50000, 60000, 70000],
+        "city": ["Toronto", "Vancouver", "Calgary", "Montreal"]
+    })
+
+    ax = plot.plot_correlation_heatmap(df)
+    assert isinstance(ax, matplotlib.axes.Axes)
