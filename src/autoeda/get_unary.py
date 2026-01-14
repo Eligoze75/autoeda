@@ -3,12 +3,9 @@ Functions to support automated exploratory data analysis (EDA)
 """
 
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 
-def get_unary(df, threshold=0.75, dropna=False):
+def get_unary(df, target=None, threshold=0.75, dropna=False):
     """
     Returns a list of columns with a single value with a relative
     frequency percentage over a threshold (75% as default).
@@ -24,4 +21,18 @@ def get_unary(df, threshold=0.75, dropna=False):
     Returns:
     unary_cols: list of unary columns.
     """
-    pass
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError("df must be a pandas DataFrame")
+
+    unary_cols = []
+    use_cols = [c for c in df if c != target]
+    for col in use_cols:
+        if df[col].nunique(dropna=dropna) == 0:
+            continue
+
+        max_freq = df[col].value_counts(normalize=True, dropna=dropna).iloc[0]
+
+        if max_freq >= threshold:
+            unary_cols.append(col)
+
+    return unary_cols
