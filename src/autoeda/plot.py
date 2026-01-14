@@ -35,7 +35,27 @@ def plot_correlation_heatmap(df, target=None, method="pearson", figsize=(10, 8))
     matplotlib.axes.Axes
         The Axes object containing the heatmap visualization.
     """
-    pass
+    # Select only numeric columns
+    numeric_df = df.select_dtypes(include=["number"])
+
+    # Drop NAN rows
+    numeric_df = numeric_df.dropna()
+    if numeric_df.shape[1] < 2:
+        raise ValueError("Not enough numeric data to compute correlation heatmap.")
+
+
+    # Edge case: no numeric columns
+    if numeric_df.shape[1] == 0:
+        raise ValueError("No numeric columns found for correlation heatmap.")
+
+    # Compute correlation matrix
+    corr = numeric_df.corr(method=method)
+
+    # Create plot
+    fig, ax = plt.subplots(figsize=figsize)
+    sns.heatmap(corr, annot=True, cmap="coolwarm", ax=ax)
+
+    return ax
 
 
 def plot_histograms_by_target(df, target, features=None, bins=30, figsize=(12, 8)):
