@@ -1,31 +1,45 @@
 """
-A test module that tests your example module.
+Unit tests for the get_unary function.
 
-Some people prefer to write tests in a test file for each function or
-method/ class. Others prefer to write tests for each module. That decision
-is up to you. This test example provides a single test for the example.py
-module.
+This module verifies that get_unary correctly identifies unary categorical
+columns under different parameter configurations and properly validates
+input types.
 """
 
 from autoeda.eda import get_unary
-import pandas as pd
-import sys
-import os
+import pytest
 
 
 def test_single_unary_col(sample_df):
     """
-    Test that get_unary works as expected.
+    Verify that unary columns are correctly detected using default parameters.
     """
-    out = get_unary(sample_df, threshold=0.75, dropna=False)
-    expected_out = list(["has_car_loan","account_type"])
+    out = get_unary(sample_df)
+    expected_out = list(["has_car_loan", "account_type"])
     assert out == expected_out, f"Expected {expected_out} but got {out}"
 
 
-def test_null_cols(sample_df):
+def test_not_consider_null_cols(sample_df):
     """
-    Test that get_unary works as expected.
+    Verify that columns containing null values are excluded when dropna=True.
     """
-    out = get_unary(sample_df, threshold=0.75, dropna=False)
-    expected_out = list(["has_car_loan","account_type"])
+    out = get_unary(sample_df, dropna=True)
+    expected_out = list(["account_type"])
     assert out == expected_out, f"Expected {expected_out} but got {out}"
+
+
+def test_no_unary_cols(sample_df):
+    """
+    Verify that an empty list is returned when no columns meet the unary threshold.
+    """
+    out = get_unary(sample_df, threshold=0.9, dropna=True)
+    expected_out = list()
+    assert out == expected_out, f"Expected {expected_out} but got {out}"
+
+
+def test_wrong_input_type_error():
+    """
+    Verify that a TypeError is raised when the input is not a pandas DataFrame.
+    """
+    with pytest.raises(TypeError, match="df must be a pandas DataFrame"):
+        get_unary("this is not a dataframe")
