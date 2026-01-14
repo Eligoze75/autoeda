@@ -28,3 +28,13 @@ def test_plot_correlation_heatmap_ignores_non_numeric():
 
     ax = plot.plot_correlation_heatmap(df)
     assert isinstance(ax, matplotlib.axes.Axes)
+
+def test_plot_correlation_heatmap_no_numeric_columns():
+    df = pd.DataFrame({
+        "city": ["Toronto", "Vancouver", "Calgary"],
+        "country": ["Canada", "Canada", "Canada"]
+    })
+
+    with pytest.raises(ValueError):
+        plot.plot_correlation_heatmap(df)
+
