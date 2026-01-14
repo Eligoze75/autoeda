@@ -89,4 +89,5 @@ def plot_histograms_by_target(df, target, features=None, bins=30, figsize=(12, 8
     matplotlib.figure.Figure
         Figure object containing the histograms.
     """
-    pass
+    fig, ax = plt.subplots(figsize=figsize)
+    return fig
