@@ -35,7 +35,8 @@ def plot_correlation_heatmap(df, target=None, method="pearson", figsize=(10, 8))
     matplotlib.axes.Axes
         The Axes object containing the heatmap visualization.
     """
-    pass
+    fig, ax = plt.subplots(figsize=figsize)
+    return ax
 
 
 def plot_histograms_by_target(df, target, features=None, bins=30, figsize=(12, 8)):
