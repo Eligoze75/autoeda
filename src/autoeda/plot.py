@@ -57,7 +57,6 @@ def plot_correlation_heatmap(df, target=None, method="pearson", figsize=(10, 8))
 
     return ax
 
-
 def plot_histograms_by_target(df, target, features=None, bins=30, figsize=(12, 8)):
     """
     Plot histograms of features grouped by a target variable.
@@ -89,5 +88,30 @@ def plot_histograms_by_target(df, target, features=None, bins=30, figsize=(12, 8
     matplotlib.figure.Figure
         Figure object containing the histograms.
     """
-    fig, ax = plt.subplots(figsize=figsize)
+
+
+    if target not in df.columns:
+        raise ValueError(f"Target column '{target}' not found in dataframe.")
+
+    if features is None:
+        features = df.select_dtypes(include="number").columns.tolist()
+        if target in features:
+            features.remove(target)
+
+    if len(features) == 0:
+        raise ValueError("No numeric features available for histogram plotting.")
+
+    fig, axes = plt.subplots(len(features), 1, figsize=figsize)
+
+    if len(features) == 1:
+        axes = [axes]
+
+    for ax, feature in zip(axes, features):
+        for label, group in df.groupby(target):
+            ax.hist(group[feature].dropna(), bins=bins, alpha=0.5, label=str(label))
+
+        ax.set_title(feature)
+        ax.legend(title=target)
+
+    plt.tight_layout()
     return fig
