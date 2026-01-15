@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib
 import autoeda.plot as plot
+import pytest
 
 
 def test_plot_histograms_by_target_basic():
@@ -30,3 +31,16 @@ def test_plot_histograms_by_target_auto_features():
     fig = plot.plot_histograms_by_target(df, target="class", features=None)
 
     assert isinstance(fig, matplotlib.figure.Figure)
+
+
+
+def test_plot_histograms_by_target_missing_target():
+    """Test that an error is raised if target column does not exist."""
+
+    df = pd.DataFrame({
+        "age": [22, 25, 30],
+        "income": [40000, 50000, 60000]
+    })
+
+    with pytest.raises(ValueError):
+        plot.plot_histograms_by_target(df, target="class")
