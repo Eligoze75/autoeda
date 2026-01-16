@@ -38,29 +38,28 @@ def get_summary_df(df, categorical_columns, numerical_columns):
     """
     categorical_df = pd.DataFrame()
     numerical_df = pd.DataFrame()
-    if categorical_df == [] or numerical_df == []:
+    if categorical_columns == [] or numerical_columns == []:
         raise ValueError("No columns provided to attain a summary")
     
     for column in categorical_columns:
-        if column.dtype != 'object':
+        if df.loc[:, column].dtype != 'object':
             raise ValueError(f"This is not a categorical column: {column}")
         else:
-            categorical_df[column] = pd.concat(
+            categorical_df[column] = pd.DataFrame(
                 [
                 df.loc[:, column].dtypes, 
                 df.loc[:, column].count(), 
                 np.sum(df.loc[:, column].isnull()),
                 # Reference: https://stackoverflow.com/questions/48590268/pandas-get-the-most-frequent-values-of-a-column
-                df.loc[:, column].mode()
-                ],
-                axis=1
+                df.loc[:, column].mode()[0]
+                ]
                 )
             
     for column in numerical_columns:
-        if column.dtype not in ['int64', 'float64']:
+        if df.loc[:, column].dtype not in ['int64', 'float64']:
             raise ValueError(f"This is not a numerical column: {column}")
         else:
-            numerical_df[column] = pd.concat(
+            numerical_df[column] = pd.DataFrame(
                 [
                 df.loc[:, column].dtypes,
                 df.loc[:, column].count(),
@@ -69,9 +68,9 @@ def get_summary_df(df, categorical_columns, numerical_columns):
                 df.loc[:, column].std(),
                 df.loc[:, column].min(),
                 df.loc[:, column].max()
-                ], 
-                axis=1
+                ]
                 )
+    categorical_df, numerical_df = categorical_df.transpose(), numerical_df.transpose()
     categorical_df.columns = ['Data Type', 'Non-Null Count', 'Missing Values Count', 'Most Common Value']
     numerical_df.columns = ['Data Type', 'Non-Null Count', 'Missing Values Count', 'Mean', 'Std', 'Min', 'Max']
     return categorical_df, numerical_df
