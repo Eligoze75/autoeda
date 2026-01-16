@@ -36,7 +36,10 @@ classifiers = [
 # TODO: add keywords
 keywords = []
 # TODO: add dependencies
-dependencies = []
+dependencies = [
+    "matplotlib>=3.10.0",
+    "seaborn>=0.13.2"
+]
 
 [project.urls]
 Homepage = "https://github.com/Eligoze75/autoeda"
