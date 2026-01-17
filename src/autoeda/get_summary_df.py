@@ -4,8 +4,7 @@ Functions to support automated exploratory data analysis (EDA)
 
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 
 def get_summary_df(df, categorical_columns, numerical_columns):
     """
@@ -40,37 +39,50 @@ def get_summary_df(df, categorical_columns, numerical_columns):
     numerical_df = pd.DataFrame()
     if categorical_columns == [] or numerical_columns == []:
         raise ValueError("No columns provided to attain a summary")
-    
+
     for column in categorical_columns:
-        if df.loc[:, column].dtype != 'object':
+        if df.loc[:, column].dtype != "object":
             raise ValueError(f"This is not a categorical column: {column}")
         else:
             categorical_df[column] = pd.DataFrame(
                 [
-                df.loc[:, column].dtypes, 
-                df.loc[:, column].count(), 
-                np.sum(df.loc[:, column].isnull()),
-                # Reference: https://stackoverflow.com/questions/48590268/pandas-get-the-most-frequent-values-of-a-column
-                df.loc[:, column].mode()[0]
+                    df.loc[:, column].dtypes,
+                    df.loc[:, column].count(),
+                    np.sum(df.loc[:, column].isnull()),
+                    # Reference: https://stackoverflow.com/questions/48590268/pandas-get-the-most-frequent-values-of-a-column
+                    df.loc[:, column].mode()[0],
                 ]
-                )
-            
+            )
+
     for column in numerical_columns:
-        if df.loc[:, column].dtype not in ['int64', 'float64']:
+        if df.loc[:, column].dtype not in ["int64", "float64"]:
             raise ValueError(f"This is not a numerical column: {column}")
         else:
             numerical_df[column] = pd.DataFrame(
                 [
-                df.loc[:, column].dtypes,
-                df.loc[:, column].count(),
-                np.sum(df.loc[:, column].isnull()),
-                df.loc[:, column].mean(),
-                df.loc[:, column].std(),
-                df.loc[:, column].min(),
-                df.loc[:, column].max()
+                    df.loc[:, column].dtypes,
+                    df.loc[:, column].count(),
+                    np.sum(df.loc[:, column].isnull()),
+                    df.loc[:, column].mean(),
+                    df.loc[:, column].std(),
+                    df.loc[:, column].min(),
+                    df.loc[:, column].max(),
                 ]
-                )
+            )
     categorical_df, numerical_df = categorical_df.transpose(), numerical_df.transpose()
-    categorical_df.columns = ['Data Type', 'Non-Null Count', 'Missing Values Count', 'Most Common Value']
-    numerical_df.columns = ['Data Type', 'Non-Null Count', 'Missing Values Count', 'Mean', 'Std', 'Min', 'Max']
+    categorical_df.columns = [
+        "Data Type",
+        "Non-Null Count",
+        "Missing Values Count",
+        "Most Common Value",
+    ]
+    numerical_df.columns = [
+        "Data Type",
+        "Non-Null Count",
+        "Missing Values Count",
+        "Mean",
+        "Std",
+        "Min",
+        "Max",
+    ]
     return categorical_df, numerical_df

@@ -17,7 +17,7 @@ AutoEDA is a lightweight Python package designed to automate the most common and
 You can install this package into your preferred Python environment using pip:
 
 ```bash
-$ pip install autoeda
+python -m pip install -e .
 ```
 
 TODO: Add a brief example of how to use the package to this section
@@ -25,16 +25,19 @@ TODO: Add a brief example of how to use the package to this section
 To use autoeda in your code:
 
 ```python
->>> import autoeda
->>> autoeda.hello_world()
+>>> from autoeda.inspect import get_unary
+>>> get_unary(df)
 ```
 
 ## Core Functionality
 
 AutoEDA provides a set of modular functions that can be used independently or combined into a full EDA workflow:
 
-- `get_unary(df, threshold=0.75, dropna=False)`  
-Identifies columns dominated by a single value beyond a configurable frequency threshold. This helps detect near-constant or low-information features that may be candidates for removal.
+- `inspect` module
+
+  - `get_unary(df, threshold=0.75, dropna=False)` Identifies columns dominated by a single value beyond a configurable frequency threshold. This helps detect near-constant or low-information features that may be candidates for removal.
+
+  - `get_high_cardinality(df, max_unique_ratio=0.5)` Identify columns with high cardinality. This helps detect features that may be unsuitable for certain modeling techniques or require special encoding.
 
 - `get_summary_df(df)`  
 Generates a comprehensive summary table including data types, descriptive statistics, counts, and missing value information for both numerical and categorical features.

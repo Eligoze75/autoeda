@@ -44,7 +44,7 @@ def get_high_cardinality(df, max_unique_ratio=0.5):
     """
     Identify columns with high cardinality.
 
-    A column is considered high-cardinality if the ratio of unique values
+    A column is considered high cardinality if the ratio of unique values
     to the total number of rows exceeds `max_unique_ratio`.
 
     Parameters

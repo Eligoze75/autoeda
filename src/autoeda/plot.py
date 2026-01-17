@@ -3,9 +3,9 @@ Functions to support automated exploratory data analysis (EDA)
 """
 
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 
 def plot_correlation_heatmap(df, target=None, method="pearson", figsize=(10, 8)):
     """
@@ -43,7 +43,6 @@ def plot_correlation_heatmap(df, target=None, method="pearson", figsize=(10, 8))
     if numeric_df.shape[1] < 2:
         raise ValueError("Not enough numeric data to compute correlation heatmap.")
 
-
     # Edge case: no numeric columns
     if numeric_df.shape[1] == 0:
         raise ValueError("No numeric columns found for correlation heatmap.")
@@ -56,6 +55,7 @@ def plot_correlation_heatmap(df, target=None, method="pearson", figsize=(10, 8))
     sns.heatmap(corr, annot=True, cmap="coolwarm", ax=ax)
 
     return ax
+
 
 def plot_histograms_by_target(df, target, features=None, bins=30, figsize=(12, 8)):
     """
@@ -89,7 +89,6 @@ def plot_histograms_by_target(df, target, features=None, bins=30, figsize=(12, 8
         Figure object containing the histograms.
     """
 
-
     if target not in df.columns:
         raise ValueError(f"Target column '{target}' not found in dataframe.")
 
@@ -119,10 +118,12 @@ def plot_histograms_by_target(df, target, features=None, bins=30, figsize=(12, 8
 
 def test_plot_histograms_by_target_no_numeric_features():
     """Test that an error is raised if no numeric features are available."""
-    df = pd.DataFrame({
-        "class": ["A", "B", "A", "B"],
-        "city": ["Toronto", "Vancouver", "Calgary", "Montreal"]
-    })
+    df = pd.DataFrame(
+        {
+            "class": ["A", "B", "A", "B"],
+            "city": ["Toronto", "Vancouver", "Calgary", "Montreal"],
+        }
+    )
 
     with pytest.raises(ValueError):
         plot.plot_histograms_by_target(df, target="class")
