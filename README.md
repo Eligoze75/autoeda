@@ -17,7 +17,7 @@ AutoEDA is a lightweight Python package designed to automate the most common and
 You can install this package into your preferred Python environment using pip:
 
 ```bash
-pip install autoeda
+python -m pip install -e .
 ```
 
 TODO: Add a brief example of how to use the package to this section
@@ -25,8 +25,8 @@ TODO: Add a brief example of how to use the package to this section
 To use autoeda in your code:
 
 ```python
->>> import autoeda
->>> autoeda.hello_world()
+>>> from autoeda.inspect import get_unary
+>>> get_unary(df)
 ```
 
 ## Core Functionality
